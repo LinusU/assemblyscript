@@ -100,4 +100,28 @@ export class DataView {
   setUint32(byteOffset: i32, value: u32, littleEndian: boolean = false): void {
     set<u32>(this.buffer, byteOffset, value, littleEndian);
   }
+
+  /**
+   * Non-standard additions that makes sense in WebAssembly, but won't work in JS
+   */
+
+  @inline
+  getInt64(byteOffset: i32, littleEndian: boolean = false): i64 {
+    return get<i64>(this.buffer, byteOffset, littleEndian);
+  }
+
+  @inline
+  getUInt64(byteOffset: i32, littleEndian: boolean = false): u64 {
+    return get<u64>(this.buffer, byteOffset, littleEndian);
+  }
+
+  @inline
+  setInt64(byteOffset: i32, value: i64, littleEndian: boolean = false): void {
+    set<i64>(this.buffer, byteOffset, value, littleEndian);
+  }
+
+  @inline
+  setUint64(byteOffset: i32, value: u64, littleEndian: boolean = false): void {
+    set<u64>(this.buffer, byteOffset, value, littleEndian);
+  }
 }
