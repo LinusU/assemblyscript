@@ -16,8 +16,10 @@ export class DataView {
   constructor(
     readonly buffer: ArrayBuffer,
     readonly byteOffset: i32 = 0,
-    readonly byteLength: i32 = buffer.byteLength - byteOffset,
+    readonly byteLength: i32 = i32.MIN_VALUE,
   ) {
+    if (byteLength === i32.MIN_VALUE) byteLength = buffer.byteLength - byteOffset;
+
     if (byteOffset < 0) throw new RangeError("byteOffset cannot be negative");
     if (byteLength < 0) throw new RangeError("byteLength cannot be negative");
     if (byteOffset + byteLength > buffer.byteLength) throw new RangeError("Length out of range of buffer");
