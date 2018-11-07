@@ -2,13 +2,13 @@ import { HEADER_SIZE } from "./internal/arraybuffer";
 
 @inline
 function get<T>(buffer: ArrayBuffer, byteOffset: i32, littleEndian: boolean): T {
-  const result = load<T>(changetype<usize>(buffer) + byteOffset, HEADER_SIZE);
+  var result = load<T>(changetype<usize>(buffer) + byteOffset, HEADER_SIZE);
   return littleEndian ? result : bswap<T>(result);
 }
 
 @inline
 function set<T>(buffer: ArrayBuffer, byteOffset: i32, value: T, littleEndian: boolean): void {
-  const input = littleEndian ? value : bswap<T>(value);
+  var input = littleEndian ? value : bswap<T>(value);
   store<T>(changetype<usize>(buffer) + byteOffset, input, HEADER_SIZE);
 }
 
