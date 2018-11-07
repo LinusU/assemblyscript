@@ -23,82 +23,82 @@ export class DataView {
 
   @inline
   getFloat32(byteOffset: i32, littleEndian: boolean = false): f32 {
-    return get<f32>(this.buffer, byteOffset, littleEndian);
+    return get<f32>(this.buffer, this.byteOffset + byteOffset, littleEndian);
   }
 
   @inline
   getFloat64(byteOffset: i32, littleEndian: boolean = false): f64 {
-    return get<f64>(this.buffer, byteOffset, littleEndian);
+    return get<f64>(this.buffer, this.byteOffset + byteOffset, littleEndian);
   }
 
   @inline
   getInt8(byteOffset: i32, littleEndian: boolean = false): i8 {
-    return get<i8>(this.buffer, byteOffset, littleEndian);
+    return get<i8>(this.buffer, this.byteOffset + byteOffset, littleEndian);
   }
 
   @inline
   getInt16(byteOffset: i32, littleEndian: boolean = false): i16 {
-    return get<i16>(this.buffer, byteOffset, littleEndian);
+    return get<i16>(this.buffer, this.byteOffset + byteOffset, littleEndian);
   }
 
   @inline
   getInt32(byteOffset: i32, littleEndian: boolean = false): i32 {
-    return get<i32>(this.buffer, byteOffset, littleEndian);
+    return get<i32>(this.buffer, this.byteOffset + byteOffset, littleEndian);
   }
 
   @inline
   getUint8(byteOffset: i32, littleEndian: boolean = false): u8 {
-    return get<u8>(this.buffer, byteOffset, littleEndian);
+    return get<u8>(this.buffer, this.byteOffset + byteOffset, littleEndian);
   }
 
   @inline
   getUint16(byteOffset: i32, littleEndian: boolean = false): u16 {
-    return get<u16>(this.buffer, byteOffset, littleEndian);
+    return get<u16>(this.buffer, this.byteOffset + byteOffset, littleEndian);
   }
 
   @inline
   getUint32(byteOffset: i32, littleEndian: boolean = false): u32 {
-    return get<u32>(this.buffer, byteOffset, littleEndian);
+    return get<u32>(this.buffer, this.byteOffset + byteOffset, littleEndian);
   }
 
   @inline
   setFloat32(byteOffset: i32, value: f32, littleEndian: boolean = false): void {
-    set<f32>(this.buffer, byteOffset, value, littleEndian);
+    set<f32>(this.buffer, this.byteOffset + byteOffset, value, littleEndian);
   }
 
   @inline
   setFloat64(byteOffset: i32, value: f64, littleEndian: boolean = false): void {
-    set<f64>(this.buffer, byteOffset, value, littleEndian);
+    set<f64>(this.buffer, this.byteOffset + byteOffset, value, littleEndian);
   }
 
   @inline
   setInt8(byteOffset: i32, value: i8, littleEndian: boolean = false): void {
-    set<i8>(this.buffer, byteOffset, value, littleEndian);
+    set<i8>(this.buffer, this.byteOffset + byteOffset, value, littleEndian);
   }
 
   @inline
   setInt16(byteOffset: i32, value: i16, littleEndian: boolean = false): void {
-    set<i16>(this.buffer, byteOffset, value, littleEndian);
+    set<i16>(this.buffer, this.byteOffset + byteOffset, value, littleEndian);
   }
 
   @inline
   setInt32(byteOffset: i32, value: i32, littleEndian: boolean = false): void {
-    set<i32>(this.buffer, byteOffset, value, littleEndian);
+    set<i32>(this.buffer, this.byteOffset + byteOffset, value, littleEndian);
   }
 
   @inline
   setUint8(byteOffset: i32, value: u8, littleEndian: boolean = false): void {
-    set<u8>(this.buffer, byteOffset, value, littleEndian);
+    set<u8>(this.buffer, this.byteOffset + byteOffset, value, littleEndian);
   }
 
   @inline
   setUint16(byteOffset: i32, value: u16, littleEndian: boolean = false): void {
-    set<u16>(this.buffer, byteOffset, value, littleEndian);
+    set<u16>(this.buffer, this.byteOffset + byteOffset, value, littleEndian);
   }
 
   @inline
   setUint32(byteOffset: i32, value: u32, littleEndian: boolean = false): void {
-    set<u32>(this.buffer, byteOffset, value, littleEndian);
+    set<u32>(this.buffer, this.byteOffset + byteOffset, value, littleEndian);
   }
 
   /**
@@ -107,21 +107,21 @@ export class DataView {
 
   @inline
   getInt64(byteOffset: i32, littleEndian: boolean = false): i64 {
-    return get<i64>(this.buffer, byteOffset, littleEndian);
+    return get<i64>(this.buffer, this.byteOffset + byteOffset, littleEndian);
   }
 
   @inline
   getUInt64(byteOffset: i32, littleEndian: boolean = false): u64 {
-    return get<u64>(this.buffer, byteOffset, littleEndian);
+    return get<u64>(this.buffer, this.byteOffset + byteOffset, littleEndian);
   }
 
   @inline
   setInt64(byteOffset: i32, value: i64, littleEndian: boolean = false): void {
-    set<i64>(this.buffer, byteOffset, value, littleEndian);
+    set<i64>(this.buffer, this.byteOffset + byteOffset, value, littleEndian);
   }
 
   @inline
   setUint64(byteOffset: i32, value: u64, littleEndian: boolean = false): void {
-    set<u64>(this.buffer, byteOffset, value, littleEndian);
+    set<u64>(this.buffer, this.byteOffset + byteOffset, value, littleEndian);
   }
 }
