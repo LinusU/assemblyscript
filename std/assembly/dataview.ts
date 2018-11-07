@@ -2,7 +2,7 @@ import { HEADER_SIZE } from "./internal/arraybuffer";
 
 @inline
 function get<T>(buffer: ArrayBuffer, byteOffset: i32, littleEndian: boolean): T {
-  var result = load<T>(changetype<usize>(buffer) + byteOffset, HEADER_SIZE);
+  var result: T = load<T>(changetype<usize>(buffer) + byteOffset, HEADER_SIZE);
   return littleEndian ? result : bswap<T>(result);
 }
 
