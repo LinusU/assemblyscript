@@ -38,8 +38,8 @@ export class DataView {
   }
 
   @inline
-  getInt8(byteOffset: i32, littleEndian: boolean = false): i8 {
-    return get<i8>(this.buffer, this.byteOffset + byteOffset, littleEndian);
+  getInt8(byteOffset: i32): i8 {
+    return get<i8>(this.buffer, this.byteOffset + byteOffset, true);
   }
 
   @inline
@@ -53,8 +53,8 @@ export class DataView {
   }
 
   @inline
-  getUint8(byteOffset: i32, littleEndian: boolean = false): u8 {
-    return get<u8>(this.buffer, this.byteOffset + byteOffset, littleEndian);
+  getUint8(byteOffset: i32): u8 {
+    return get<u8>(this.buffer, this.byteOffset + byteOffset, true);
   }
 
   @inline
@@ -80,8 +80,8 @@ export class DataView {
   }
 
   @inline
-  setInt8(byteOffset: i32, value: i8, littleEndian: boolean = false): void {
-    set<i8>(this.buffer, this.byteOffset + byteOffset, value, littleEndian);
+  setInt8(byteOffset: i32, value: i8): void {
+    set<i8>(this.buffer, this.byteOffset + byteOffset, value, true);
   }
 
   @inline
@@ -95,8 +95,8 @@ export class DataView {
   }
 
   @inline
-  setUint8(byteOffset: i32, value: u8, littleEndian: boolean = false): void {
-    set<u8>(this.buffer, this.byteOffset + byteOffset, value, littleEndian);
+  setUint8(byteOffset: i32, value: u8): void {
+    set<u8>(this.buffer, this.byteOffset + byteOffset, value, true);
   }
 
   @inline
