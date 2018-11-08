@@ -27,12 +27,14 @@ export class DataView {
 
   @inline
   getFloat32(byteOffset: i32, littleEndian: boolean = false): f32 {
-    return get<f32>(this.buffer, this.byteOffset + byteOffset, littleEndian);
+    var result: u32 = load<u32>(changetype<usize>(this.buffer) + this.byteOffset + byteOffset, HEADER_SIZE);
+    return reinterpret<f32>(littleEndian ? result : bswap<u32>(result));
   }
 
   @inline
   getFloat64(byteOffset: i32, littleEndian: boolean = false): f64 {
-    return get<f64>(this.buffer, this.byteOffset + byteOffset, littleEndian);
+    var result: u64 = load<u64>(changetype<usize>(this.buffer) + this.byteOffset + byteOffset, HEADER_SIZE);
+    return reinterpret<f64>(littleEndian ? result : bswap<u64>(result));
   }
 
   @inline
@@ -67,12 +69,14 @@ export class DataView {
 
   @inline
   setFloat32(byteOffset: i32, value: f32, littleEndian: boolean = false): void {
-    set<f32>(this.buffer, this.byteOffset + byteOffset, value, littleEndian);
+    var input: f32 = littleEndian ? value : reinterpret<f32>(bswap<u32>(reinterpret<u32>(value)));
+    store<f32>(changetype<usize>(this.buffer) + this.byteOffset + byteOffset, input, HEADER_SIZE);
   }
 
   @inline
   setFloat64(byteOffset: i32, value: f64, littleEndian: boolean = false): void {
-    set<f64>(this.buffer, this.byteOffset + byteOffset, value, littleEndian);
+    var input: f64 = littleEndian ? value : reinterpret<f64>(bswap<u64>(reinterpret<u64>(value)));
+    store<f64>(changetype<usize>(this.buffer) + this.byteOffset + byteOffset, input, HEADER_SIZE);
   }
 
   @inline
