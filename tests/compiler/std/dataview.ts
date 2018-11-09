@@ -65,6 +65,9 @@ assert(view.getInt32(2, false) === 1486848613);
 assert(view.getInt32(3, false) === -1618844349);
 assert(view.getInt32(4, false) === -2107292833);
 
+assert(view.getInt64(0, true) === 6864441868736323830)
+assert(view.getInt64(0, false) === -657428103485373601)
+
 assert(view.getUint8(0) === 246);
 assert(view.getUint8(1) === 224);
 assert(view.getUint8(2) === 88);
@@ -101,3 +104,6 @@ assert(view.getUint32(1, false) === 3763904386);
 assert(view.getUint32(2, false) === 1486848613);
 assert(view.getUint32(3, false) === 2676122947);
 assert(view.getUint32(4, false) === 2187674463);
+
+assert(view.getUint64(0, true) === 6864441868736323830)
+assert(view.getUint64(0, false) === 17789315970224178015)
