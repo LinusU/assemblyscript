@@ -119,7 +119,7 @@ export class DataView {
   }
 
   @inline
-  getUInt64(byteOffset: i32, littleEndian: boolean = false): u64 {
+  getUint64(byteOffset: i32, littleEndian: boolean = false): u64 {
     return get<u64>(this.buffer, this.byteOffset + byteOffset, littleEndian);
   }
 
