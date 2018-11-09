@@ -1211,7 +1211,108 @@
    )
   )
  )
- (func $~lib/polyfills/bswap<u8> (; 15 ;) (type $ii) (param $0 i32) (result i32)
+ (func $~lib/polyfills/bswap<i64> (; 15 ;) (type $II) (param $0 i64) (result i64)
+  (local $1 i32)
+  (local $2 i64)
+  (local $3 i64)
+  (local $4 i64)
+  (if
+   (i32.eqz
+    (if (result i32)
+     (tee_local $1
+      (if (result i32)
+       (tee_local $1
+        (if (result i32)
+         (tee_local $1
+          (i32.eq
+           (i32.const 8)
+           (i32.const 1)
+          )
+         )
+         (get_local $1)
+         (i32.eq
+          (i32.const 8)
+          (i32.const 2)
+         )
+        )
+       )
+       (get_local $1)
+       (i32.eq
+        (i32.const 8)
+        (i32.const 4)
+       )
+      )
+     )
+     (get_local $1)
+     (i32.eq
+      (i32.const 8)
+      (i32.const 8)
+     )
+    )
+   )
+   (block
+    (call $~lib/env/abort
+     (i32.const 0)
+     (i32.const 176)
+     (i32.const 2)
+     (i32.const 2)
+    )
+    (unreachable)
+   )
+  )
+  (set_local $2
+   (i64.and
+    (i64.shr_u
+     (get_local $0)
+     (i64.const 8)
+    )
+    (i64.const 71777214294589695)
+   )
+  )
+  (set_local $3
+   (i64.shl
+    (i64.and
+     (get_local $0)
+     (i64.const 71777214294589695)
+    )
+    (i64.const 8)
+   )
+  )
+  (set_local $4
+   (i64.or
+    (get_local $2)
+    (get_local $3)
+   )
+  )
+  (set_local $2
+   (i64.and
+    (i64.shr_u
+     (get_local $4)
+     (i64.const 16)
+    )
+    (i64.const 281470681808895)
+   )
+  )
+  (set_local $3
+   (i64.shl
+    (i64.and
+     (get_local $4)
+     (i64.const 281470681808895)
+    )
+    (i64.const 16)
+   )
+  )
+  (return
+   (i64.rotr
+    (i64.or
+     (get_local $2)
+     (get_local $3)
+    )
+    (i64.const 32)
+   )
+  )
+ )
+ (func $~lib/polyfills/bswap<u8> (; 16 ;) (type $ii) (param $0 i32) (result i32)
   (local $1 i32)
   (if
    (i32.eqz
@@ -1259,7 +1360,7 @@
   )
   (get_local $0)
  )
- (func $~lib/polyfills/bswap16<u16> (; 16 ;) (type $ii) (param $0 i32) (result i32)
+ (func $~lib/polyfills/bswap16<u16> (; 17 ;) (type $ii) (param $0 i32) (result i32)
   (local $1 i32)
   (if
    (i32.eqz
@@ -1340,7 +1441,7 @@
   )
   (get_local $0)
  )
- (func $~lib/polyfills/bswap<u16> (; 17 ;) (type $ii) (param $0 i32) (result i32)
+ (func $~lib/polyfills/bswap<u16> (; 18 ;) (type $ii) (param $0 i32) (result i32)
   (local $1 i32)
   (if
    (i32.eqz
@@ -1392,7 +1493,7 @@
    )
   )
  )
- (func $start (; 18 ;) (type $v)
+ (func $start (; 19 ;) (type $v)
   (local $0 i32)
   (local $1 i32)
   (local $2 i32)
@@ -1400,6 +1501,12 @@
   (local $4 i64)
   (local $5 i32)
   (local $6 i32)
+  (local $7 f32)
+  (local $8 f32)
+  (local $9 f64)
+  (local $10 f64)
+  (local $11 i32)
+  (local $12 i64)
   (set_global $~lib/allocator/arena/startOffset
    (i32.and
     (i32.add
@@ -4117,6 +4224,126 @@
   )
   (if
    (i32.eqz
+    (i64.eq
+     (block $~lib/dataview/DataView#getInt64|inlined.0 (result i64)
+      (set_local $0
+       (get_global $std/dataview/view)
+      )
+      (set_local $1
+       (i32.const 0)
+      )
+      (set_local $2
+       (i32.const 1)
+      )
+      (block $~lib/dataview/get<i64>|inlined.0 (result i64)
+       (set_local $3
+        (i32.load
+         (get_local $0)
+        )
+       )
+       (set_local $5
+        (i32.add
+         (i32.load offset=4
+          (get_local $0)
+         )
+         (get_local $1)
+        )
+       )
+       (set_local $4
+        (i64.load offset=8
+         (i32.add
+          (get_local $3)
+          (get_local $5)
+         )
+        )
+       )
+       (if (result i64)
+        (i32.and
+         (get_local $2)
+         (i32.const 1)
+        )
+        (get_local $4)
+        (call $~lib/polyfills/bswap<i64>
+         (get_local $4)
+        )
+       )
+      )
+     )
+     (i64.const 6864441868736323830)
+    )
+   )
+   (block
+    (call $~lib/env/abort
+     (i32.const 0)
+     (i32.const 216)
+     (i32.const 68)
+     (i32.const 0)
+    )
+    (unreachable)
+   )
+  )
+  (if
+   (i32.eqz
+    (i64.eq
+     (block $~lib/dataview/DataView#getInt64|inlined.1 (result i64)
+      (set_local $2
+       (get_global $std/dataview/view)
+      )
+      (set_local $1
+       (i32.const 0)
+      )
+      (set_local $0
+       (i32.const 0)
+      )
+      (block $~lib/dataview/get<i64>|inlined.1 (result i64)
+       (set_local $5
+        (i32.load
+         (get_local $2)
+        )
+       )
+       (set_local $3
+        (i32.add
+         (i32.load offset=4
+          (get_local $2)
+         )
+         (get_local $1)
+        )
+       )
+       (set_local $4
+        (i64.load offset=8
+         (i32.add
+          (get_local $5)
+          (get_local $3)
+         )
+        )
+       )
+       (if (result i64)
+        (i32.and
+         (get_local $0)
+         (i32.const 1)
+        )
+        (get_local $4)
+        (call $~lib/polyfills/bswap<i64>
+         (get_local $4)
+        )
+       )
+      )
+     )
+     (i64.const -657428103485373601)
+    )
+   )
+   (block
+    (call $~lib/env/abort
+     (i32.const 0)
+     (i32.const 216)
+     (i32.const 69)
+     (i32.const 0)
+    )
+    (unreachable)
+   )
+  )
+  (if
+   (i32.eqz
     (i32.eq
      (i32.and
       (block $~lib/dataview/DataView#getUint8|inlined.0 (result i32)
@@ -4169,7 +4396,7 @@
     (call $~lib/env/abort
      (i32.const 0)
      (i32.const 216)
-     (i32.const 68)
+     (i32.const 71)
      (i32.const 0)
     )
     (unreachable)
@@ -4229,7 +4456,7 @@
     (call $~lib/env/abort
      (i32.const 0)
      (i32.const 216)
-     (i32.const 69)
+     (i32.const 72)
      (i32.const 0)
     )
     (unreachable)
@@ -4289,7 +4516,7 @@
     (call $~lib/env/abort
      (i32.const 0)
      (i32.const 216)
-     (i32.const 70)
+     (i32.const 73)
      (i32.const 0)
     )
     (unreachable)
@@ -4349,7 +4576,7 @@
     (call $~lib/env/abort
      (i32.const 0)
      (i32.const 216)
-     (i32.const 71)
+     (i32.const 74)
      (i32.const 0)
     )
     (unreachable)
@@ -4409,7 +4636,7 @@
     (call $~lib/env/abort
      (i32.const 0)
      (i32.const 216)
-     (i32.const 72)
+     (i32.const 75)
      (i32.const 0)
     )
     (unreachable)
@@ -4469,7 +4696,7 @@
     (call $~lib/env/abort
      (i32.const 0)
      (i32.const 216)
-     (i32.const 73)
+     (i32.const 76)
      (i32.const 0)
     )
     (unreachable)
@@ -4529,7 +4756,7 @@
     (call $~lib/env/abort
      (i32.const 0)
      (i32.const 216)
-     (i32.const 74)
+     (i32.const 77)
      (i32.const 0)
     )
     (unreachable)
@@ -4589,7 +4816,7 @@
     (call $~lib/env/abort
      (i32.const 0)
      (i32.const 216)
-     (i32.const 75)
+     (i32.const 78)
      (i32.const 0)
     )
     (unreachable)
@@ -4652,7 +4879,7 @@
     (call $~lib/env/abort
      (i32.const 0)
      (i32.const 216)
-     (i32.const 77)
+     (i32.const 80)
      (i32.const 0)
     )
     (unreachable)
@@ -4715,7 +4942,7 @@
     (call $~lib/env/abort
      (i32.const 0)
      (i32.const 216)
-     (i32.const 78)
+     (i32.const 81)
      (i32.const 0)
     )
     (unreachable)
@@ -4778,7 +5005,7 @@
     (call $~lib/env/abort
      (i32.const 0)
      (i32.const 216)
-     (i32.const 79)
+     (i32.const 82)
      (i32.const 0)
     )
     (unreachable)
@@ -4841,7 +5068,7 @@
     (call $~lib/env/abort
      (i32.const 0)
      (i32.const 216)
-     (i32.const 80)
+     (i32.const 83)
      (i32.const 0)
     )
     (unreachable)
@@ -4904,7 +5131,7 @@
     (call $~lib/env/abort
      (i32.const 0)
      (i32.const 216)
-     (i32.const 81)
+     (i32.const 84)
      (i32.const 0)
     )
     (unreachable)
@@ -4967,7 +5194,7 @@
     (call $~lib/env/abort
      (i32.const 0)
      (i32.const 216)
-     (i32.const 82)
+     (i32.const 85)
      (i32.const 0)
     )
     (unreachable)
@@ -5030,7 +5257,7 @@
     (call $~lib/env/abort
      (i32.const 0)
      (i32.const 216)
-     (i32.const 83)
+     (i32.const 86)
      (i32.const 0)
     )
     (unreachable)
@@ -5093,7 +5320,7 @@
     (call $~lib/env/abort
      (i32.const 0)
      (i32.const 216)
-     (i32.const 85)
+     (i32.const 88)
      (i32.const 0)
     )
     (unreachable)
@@ -5156,7 +5383,7 @@
     (call $~lib/env/abort
      (i32.const 0)
      (i32.const 216)
-     (i32.const 86)
+     (i32.const 89)
      (i32.const 0)
     )
     (unreachable)
@@ -5219,7 +5446,7 @@
     (call $~lib/env/abort
      (i32.const 0)
      (i32.const 216)
-     (i32.const 87)
+     (i32.const 90)
      (i32.const 0)
     )
     (unreachable)
@@ -5282,7 +5509,7 @@
     (call $~lib/env/abort
      (i32.const 0)
      (i32.const 216)
-     (i32.const 88)
+     (i32.const 91)
      (i32.const 0)
     )
     (unreachable)
@@ -5345,7 +5572,7 @@
     (call $~lib/env/abort
      (i32.const 0)
      (i32.const 216)
-     (i32.const 89)
+     (i32.const 92)
      (i32.const 0)
     )
     (unreachable)
@@ -5408,7 +5635,7 @@
     (call $~lib/env/abort
      (i32.const 0)
      (i32.const 216)
-     (i32.const 90)
+     (i32.const 93)
      (i32.const 0)
     )
     (unreachable)
@@ -5471,7 +5698,7 @@
     (call $~lib/env/abort
      (i32.const 0)
      (i32.const 216)
-     (i32.const 91)
+     (i32.const 94)
      (i32.const 0)
     )
     (unreachable)
@@ -5531,7 +5758,7 @@
     (call $~lib/env/abort
      (i32.const 0)
      (i32.const 216)
-     (i32.const 93)
+     (i32.const 96)
      (i32.const 0)
     )
     (unreachable)
@@ -5591,7 +5818,7 @@
     (call $~lib/env/abort
      (i32.const 0)
      (i32.const 216)
-     (i32.const 94)
+     (i32.const 97)
      (i32.const 0)
     )
     (unreachable)
@@ -5651,7 +5878,7 @@
     (call $~lib/env/abort
      (i32.const 0)
      (i32.const 216)
-     (i32.const 95)
+     (i32.const 98)
      (i32.const 0)
     )
     (unreachable)
@@ -5711,7 +5938,7 @@
     (call $~lib/env/abort
      (i32.const 0)
      (i32.const 216)
-     (i32.const 96)
+     (i32.const 99)
      (i32.const 0)
     )
     (unreachable)
@@ -5771,7 +5998,7 @@
     (call $~lib/env/abort
      (i32.const 0)
      (i32.const 216)
-     (i32.const 97)
+     (i32.const 100)
      (i32.const 0)
     )
     (unreachable)
@@ -5831,7 +6058,7 @@
     (call $~lib/env/abort
      (i32.const 0)
      (i32.const 216)
-     (i32.const 99)
+     (i32.const 102)
      (i32.const 0)
     )
     (unreachable)
@@ -5891,7 +6118,7 @@
     (call $~lib/env/abort
      (i32.const 0)
      (i32.const 216)
-     (i32.const 100)
+     (i32.const 103)
      (i32.const 0)
     )
     (unreachable)
@@ -5951,7 +6178,7 @@
     (call $~lib/env/abort
      (i32.const 0)
      (i32.const 216)
-     (i32.const 101)
+     (i32.const 104)
      (i32.const 0)
     )
     (unreachable)
@@ -6011,7 +6238,7 @@
     (call $~lib/env/abort
      (i32.const 0)
      (i32.const 216)
-     (i32.const 102)
+     (i32.const 105)
      (i32.const 0)
     )
     (unreachable)
@@ -6071,13 +6298,2028 @@
     (call $~lib/env/abort
      (i32.const 0)
      (i32.const 216)
-     (i32.const 103)
+     (i32.const 106)
+     (i32.const 0)
+    )
+    (unreachable)
+   )
+  )
+  (if
+   (i32.eqz
+    (i64.eq
+     (block $~lib/dataview/DataView#getUint64|inlined.0 (result i64)
+      (set_local $0
+       (get_global $std/dataview/view)
+      )
+      (set_local $1
+       (i32.const 0)
+      )
+      (set_local $2
+       (i32.const 1)
+      )
+      (block $~lib/dataview/get<u64>|inlined.0 (result i64)
+       (set_local $3
+        (i32.load
+         (get_local $0)
+        )
+       )
+       (set_local $5
+        (i32.add
+         (i32.load offset=4
+          (get_local $0)
+         )
+         (get_local $1)
+        )
+       )
+       (set_local $4
+        (i64.load offset=8
+         (i32.add
+          (get_local $3)
+          (get_local $5)
+         )
+        )
+       )
+       (if (result i64)
+        (i32.and
+         (get_local $2)
+         (i32.const 1)
+        )
+        (get_local $4)
+        (call $~lib/polyfills/bswap<u64>
+         (get_local $4)
+        )
+       )
+      )
+     )
+     (i64.const 6864441868736323830)
+    )
+   )
+   (block
+    (call $~lib/env/abort
+     (i32.const 0)
+     (i32.const 216)
+     (i32.const 108)
+     (i32.const 0)
+    )
+    (unreachable)
+   )
+  )
+  (if
+   (i32.eqz
+    (i64.eq
+     (block $~lib/dataview/DataView#getUint64|inlined.1 (result i64)
+      (set_local $2
+       (get_global $std/dataview/view)
+      )
+      (set_local $1
+       (i32.const 0)
+      )
+      (set_local $0
+       (i32.const 0)
+      )
+      (block $~lib/dataview/get<u64>|inlined.1 (result i64)
+       (set_local $5
+        (i32.load
+         (get_local $2)
+        )
+       )
+       (set_local $3
+        (i32.add
+         (i32.load offset=4
+          (get_local $2)
+         )
+         (get_local $1)
+        )
+       )
+       (set_local $4
+        (i64.load offset=8
+         (i32.add
+          (get_local $5)
+          (get_local $3)
+         )
+        )
+       )
+       (if (result i64)
+        (i32.and
+         (get_local $0)
+         (i32.const 1)
+        )
+        (get_local $4)
+        (call $~lib/polyfills/bswap<u64>
+         (get_local $4)
+        )
+       )
+      )
+     )
+     (i64.const -657428103485373601)
+    )
+   )
+   (block
+    (call $~lib/env/abort
+     (i32.const 0)
+     (i32.const 216)
+     (i32.const 109)
+     (i32.const 0)
+    )
+    (unreachable)
+   )
+  )
+  (block $~lib/dataview/DataView#setFloat32|inlined.0
+   (set_local $0
+    (get_global $std/dataview/view)
+   )
+   (set_local $1
+    (i32.const 0)
+   )
+   (set_local $7
+    (f32.const 1.5976661625240943e-18)
+   )
+   (set_local $2
+    (i32.const 1)
+   )
+   (set_local $8
+    (if (result f32)
+     (get_local $2)
+     (get_local $7)
+     (f32.reinterpret/i32
+      (call $~lib/polyfills/bswap<u32>
+       (i32.reinterpret/f32
+        (get_local $7)
+       )
+      )
+     )
+    )
+   )
+   (f32.store offset=8
+    (i32.add
+     (i32.add
+      (i32.load
+       (get_local $0)
+      )
+      (i32.load offset=4
+       (get_local $0)
+      )
+     )
+     (get_local $1)
+    )
+    (get_local $8)
+   )
+  )
+  (if
+   (i32.eqz
+    (f32.eq
+     (block $~lib/dataview/DataView#getFloat32|inlined.10 (result f32)
+      (set_local $2
+       (get_global $std/dataview/view)
+      )
+      (set_local $1
+       (i32.const 0)
+      )
+      (set_local $0
+       (i32.const 1)
+      )
+      (set_local $3
+       (i32.load offset=8
+        (i32.add
+         (i32.add
+          (i32.load
+           (get_local $2)
+          )
+          (i32.load offset=4
+           (get_local $2)
+          )
+         )
+         (get_local $1)
+        )
+       )
+      )
+      (f32.reinterpret/i32
+       (if (result i32)
+        (get_local $0)
+        (get_local $3)
+        (call $~lib/polyfills/bswap<u32>
+         (get_local $3)
+        )
+       )
+      )
+     )
+     (f32.const 1.5976661625240943e-18)
+    )
+   )
+   (block
+    (call $~lib/env/abort
+     (i32.const 0)
+     (i32.const 216)
+     (i32.const 112)
+     (i32.const 0)
+    )
+    (unreachable)
+   )
+  )
+  (block $~lib/dataview/DataView#setFloat32|inlined.1
+   (set_local $3
+    (get_global $std/dataview/view)
+   )
+   (set_local $0
+    (i32.const 0)
+   )
+   (set_local $8
+    (f32.const 1976281973381696323584)
+   )
+   (set_local $1
+    (i32.const 0)
+   )
+   (set_local $7
+    (if (result f32)
+     (get_local $1)
+     (get_local $8)
+     (f32.reinterpret/i32
+      (call $~lib/polyfills/bswap<u32>
+       (i32.reinterpret/f32
+        (get_local $8)
+       )
+      )
+     )
+    )
+   )
+   (f32.store offset=8
+    (i32.add
+     (i32.add
+      (i32.load
+       (get_local $3)
+      )
+      (i32.load offset=4
+       (get_local $3)
+      )
+     )
+     (get_local $0)
+    )
+    (get_local $7)
+   )
+  )
+  (if
+   (i32.eqz
+    (f32.eq
+     (block $~lib/dataview/DataView#getFloat32|inlined.11 (result f32)
+      (set_local $1
+       (get_global $std/dataview/view)
+      )
+      (set_local $0
+       (i32.const 0)
+      )
+      (set_local $3
+       (i32.const 0)
+      )
+      (set_local $2
+       (i32.load offset=8
+        (i32.add
+         (i32.add
+          (i32.load
+           (get_local $1)
+          )
+          (i32.load offset=4
+           (get_local $1)
+          )
+         )
+         (get_local $0)
+        )
+       )
+      )
+      (f32.reinterpret/i32
+       (if (result i32)
+        (get_local $3)
+        (get_local $2)
+        (call $~lib/polyfills/bswap<u32>
+         (get_local $2)
+        )
+       )
+      )
+     )
+     (f32.const 1976281973381696323584)
+    )
+   )
+   (block
+    (call $~lib/env/abort
+     (i32.const 0)
+     (i32.const 216)
+     (i32.const 115)
+     (i32.const 0)
+    )
+    (unreachable)
+   )
+  )
+  (block $~lib/dataview/DataView#setFloat64|inlined.0
+   (set_local $2
+    (get_global $std/dataview/view)
+   )
+   (set_local $3
+    (i32.const 0)
+   )
+   (set_local $9
+    (f64.const -1094252199637739024055454e124)
+   )
+   (set_local $0
+    (i32.const 1)
+   )
+   (set_local $10
+    (if (result f64)
+     (get_local $0)
+     (get_local $9)
+     (f64.reinterpret/i64
+      (call $~lib/polyfills/bswap<u64>
+       (i64.reinterpret/f64
+        (get_local $9)
+       )
+      )
+     )
+    )
+   )
+   (f64.store offset=8
+    (i32.add
+     (i32.add
+      (i32.load
+       (get_local $2)
+      )
+      (i32.load offset=4
+       (get_local $2)
+      )
+     )
+     (get_local $3)
+    )
+    (get_local $10)
+   )
+  )
+  (if
+   (i32.eqz
+    (f64.eq
+     (block $~lib/dataview/DataView#getFloat64|inlined.2 (result f64)
+      (set_local $0
+       (get_global $std/dataview/view)
+      )
+      (set_local $3
+       (i32.const 0)
+      )
+      (set_local $2
+       (i32.const 1)
+      )
+      (set_local $4
+       (i64.load offset=8
+        (i32.add
+         (i32.add
+          (i32.load
+           (get_local $0)
+          )
+          (i32.load offset=4
+           (get_local $0)
+          )
+         )
+         (get_local $3)
+        )
+       )
+      )
+      (f64.reinterpret/i64
+       (if (result i64)
+        (get_local $2)
+        (get_local $4)
+        (call $~lib/polyfills/bswap<u64>
+         (get_local $4)
+        )
+       )
+      )
+     )
+     (f64.const -1094252199637739024055454e124)
+    )
+   )
+   (block
+    (call $~lib/env/abort
+     (i32.const 0)
+     (i32.const 216)
+     (i32.const 118)
+     (i32.const 0)
+    )
+    (unreachable)
+   )
+  )
+  (block $~lib/dataview/DataView#setFloat64|inlined.1
+   (set_local $2
+    (get_global $std/dataview/view)
+   )
+   (set_local $3
+    (i32.const 0)
+   )
+   (set_local $10
+    (f64.const 6.022586634778589e-103)
+   )
+   (set_local $0
+    (i32.const 0)
+   )
+   (set_local $9
+    (if (result f64)
+     (get_local $0)
+     (get_local $10)
+     (f64.reinterpret/i64
+      (call $~lib/polyfills/bswap<u64>
+       (i64.reinterpret/f64
+        (get_local $10)
+       )
+      )
+     )
+    )
+   )
+   (f64.store offset=8
+    (i32.add
+     (i32.add
+      (i32.load
+       (get_local $2)
+      )
+      (i32.load offset=4
+       (get_local $2)
+      )
+     )
+     (get_local $3)
+    )
+    (get_local $9)
+   )
+  )
+  (if
+   (i32.eqz
+    (f64.eq
+     (block $~lib/dataview/DataView#getFloat64|inlined.3 (result f64)
+      (set_local $0
+       (get_global $std/dataview/view)
+      )
+      (set_local $3
+       (i32.const 0)
+      )
+      (set_local $2
+       (i32.const 0)
+      )
+      (set_local $4
+       (i64.load offset=8
+        (i32.add
+         (i32.add
+          (i32.load
+           (get_local $0)
+          )
+          (i32.load offset=4
+           (get_local $0)
+          )
+         )
+         (get_local $3)
+        )
+       )
+      )
+      (f64.reinterpret/i64
+       (if (result i64)
+        (get_local $2)
+        (get_local $4)
+        (call $~lib/polyfills/bswap<u64>
+         (get_local $4)
+        )
+       )
+      )
+     )
+     (f64.const 6.022586634778589e-103)
+    )
+   )
+   (block
+    (call $~lib/env/abort
+     (i32.const 0)
+     (i32.const 216)
+     (i32.const 121)
+     (i32.const 0)
+    )
+    (unreachable)
+   )
+  )
+  (block $~lib/dataview/DataView#setInt8|inlined.0
+   (set_local $2
+    (get_global $std/dataview/view)
+   )
+   (set_local $3
+    (i32.const 0)
+   )
+   (set_local $0
+    (i32.const 108)
+   )
+   (block $~lib/dataview/set<i8>|inlined.0
+    (set_local $1
+     (i32.load
+      (get_local $2)
+     )
+    )
+    (set_local $5
+     (i32.add
+      (i32.load offset=4
+       (get_local $2)
+      )
+      (get_local $3)
+     )
+    )
+    (set_local $6
+     (i32.const 1)
+    )
+    (set_local $11
+     (if (result i32)
+      (get_local $6)
+      (get_local $0)
+      (call $~lib/polyfills/bswap<i8>
+       (get_local $0)
+      )
+     )
+    )
+    (i32.store8 offset=8
+     (i32.add
+      (get_local $1)
+      (get_local $5)
+     )
+     (get_local $11)
+    )
+   )
+  )
+  (if
+   (i32.eqz
+    (i32.eq
+     (i32.shr_s
+      (i32.shl
+       (block $~lib/dataview/DataView#getInt8|inlined.8 (result i32)
+        (set_local $0
+         (get_global $std/dataview/view)
+        )
+        (set_local $3
+         (i32.const 0)
+        )
+        (block $~lib/dataview/get<i8>|inlined.8 (result i32)
+         (set_local $2
+          (i32.load
+           (get_local $0)
+          )
+         )
+         (set_local $11
+          (i32.add
+           (i32.load offset=4
+            (get_local $0)
+           )
+           (get_local $3)
+          )
+         )
+         (set_local $6
+          (i32.const 1)
+         )
+         (set_local $5
+          (i32.load8_s offset=8
+           (i32.add
+            (get_local $2)
+            (get_local $11)
+           )
+          )
+         )
+         (if (result i32)
+          (get_local $6)
+          (get_local $5)
+          (call $~lib/polyfills/bswap<i8>
+           (get_local $5)
+          )
+         )
+        )
+       )
+       (i32.const 24)
+      )
+      (i32.const 24)
+     )
+     (i32.const 108)
+    )
+   )
+   (block
+    (call $~lib/env/abort
+     (i32.const 0)
+     (i32.const 216)
+     (i32.const 124)
+     (i32.const 0)
+    )
+    (unreachable)
+   )
+  )
+  (block $~lib/dataview/DataView#setInt16|inlined.0
+   (set_local $3
+    (get_global $std/dataview/view)
+   )
+   (set_local $0
+    (i32.const 0)
+   )
+   (set_local $5
+    (i32.const -13360)
+   )
+   (set_local $6
+    (i32.const 1)
+   )
+   (block $~lib/dataview/set<i16>|inlined.0
+    (set_local $11
+     (i32.load
+      (get_local $3)
+     )
+    )
+    (set_local $2
+     (i32.add
+      (i32.load offset=4
+       (get_local $3)
+      )
+      (get_local $0)
+     )
+    )
+    (set_local $1
+     (if (result i32)
+      (i32.and
+       (get_local $6)
+       (i32.const 1)
+      )
+      (get_local $5)
+      (call $~lib/polyfills/bswap<i16>
+       (get_local $5)
+      )
+     )
+    )
+    (i32.store16 offset=8
+     (i32.add
+      (get_local $11)
+      (get_local $2)
+     )
+     (get_local $1)
+    )
+   )
+  )
+  (if
+   (i32.eqz
+    (i32.eq
+     (i32.shr_s
+      (i32.shl
+       (block $~lib/dataview/DataView#getInt16|inlined.14 (result i32)
+        (set_local $6
+         (get_global $std/dataview/view)
+        )
+        (set_local $5
+         (i32.const 0)
+        )
+        (set_local $0
+         (i32.const 1)
+        )
+        (block $~lib/dataview/get<i16>|inlined.14 (result i32)
+         (set_local $3
+          (i32.load
+           (get_local $6)
+          )
+         )
+         (set_local $1
+          (i32.add
+           (i32.load offset=4
+            (get_local $6)
+           )
+           (get_local $5)
+          )
+         )
+         (set_local $2
+          (i32.load16_s offset=8
+           (i32.add
+            (get_local $3)
+            (get_local $1)
+           )
+          )
+         )
+         (if (result i32)
+          (i32.and
+           (get_local $0)
+           (i32.const 1)
+          )
+          (get_local $2)
+          (call $~lib/polyfills/bswap<i16>
+           (get_local $2)
+          )
+         )
+        )
+       )
+       (i32.const 16)
+      )
+      (i32.const 16)
+     )
+     (i32.const -13360)
+    )
+   )
+   (block
+    (call $~lib/env/abort
+     (i32.const 0)
+     (i32.const 216)
+     (i32.const 127)
+     (i32.const 0)
+    )
+    (unreachable)
+   )
+  )
+  (block $~lib/dataview/DataView#setInt16|inlined.1
+   (set_local $0
+    (get_global $std/dataview/view)
+   )
+   (set_local $5
+    (i32.const 0)
+   )
+   (set_local $6
+    (i32.const 14689)
+   )
+   (set_local $2
+    (i32.const 0)
+   )
+   (block $~lib/dataview/set<i16>|inlined.1
+    (set_local $1
+     (i32.load
+      (get_local $0)
+     )
+    )
+    (set_local $3
+     (i32.add
+      (i32.load offset=4
+       (get_local $0)
+      )
+      (get_local $5)
+     )
+    )
+    (set_local $11
+     (if (result i32)
+      (i32.and
+       (get_local $2)
+       (i32.const 1)
+      )
+      (get_local $6)
+      (call $~lib/polyfills/bswap<i16>
+       (get_local $6)
+      )
+     )
+    )
+    (i32.store16 offset=8
+     (i32.add
+      (get_local $1)
+      (get_local $3)
+     )
+     (get_local $11)
+    )
+   )
+  )
+  (if
+   (i32.eqz
+    (i32.eq
+     (i32.shr_s
+      (i32.shl
+       (block $~lib/dataview/DataView#getInt16|inlined.15 (result i32)
+        (set_local $2
+         (get_global $std/dataview/view)
+        )
+        (set_local $6
+         (i32.const 0)
+        )
+        (set_local $5
+         (i32.const 0)
+        )
+        (block $~lib/dataview/get<i16>|inlined.15 (result i32)
+         (set_local $0
+          (i32.load
+           (get_local $2)
+          )
+         )
+         (set_local $11
+          (i32.add
+           (i32.load offset=4
+            (get_local $2)
+           )
+           (get_local $6)
+          )
+         )
+         (set_local $3
+          (i32.load16_s offset=8
+           (i32.add
+            (get_local $0)
+            (get_local $11)
+           )
+          )
+         )
+         (if (result i32)
+          (i32.and
+           (get_local $5)
+           (i32.const 1)
+          )
+          (get_local $3)
+          (call $~lib/polyfills/bswap<i16>
+           (get_local $3)
+          )
+         )
+        )
+       )
+       (i32.const 16)
+      )
+      (i32.const 16)
+     )
+     (i32.const 14689)
+    )
+   )
+   (block
+    (call $~lib/env/abort
+     (i32.const 0)
+     (i32.const 216)
+     (i32.const 130)
+     (i32.const 0)
+    )
+    (unreachable)
+   )
+  )
+  (block $~lib/dataview/DataView#setInt32|inlined.0
+   (set_local $5
+    (get_global $std/dataview/view)
+   )
+   (set_local $6
+    (i32.const 0)
+   )
+   (set_local $2
+    (i32.const 1204680201)
+   )
+   (set_local $3
+    (i32.const 1)
+   )
+   (block $~lib/dataview/set<i32>|inlined.0
+    (set_local $11
+     (i32.load
+      (get_local $5)
+     )
+    )
+    (set_local $0
+     (i32.add
+      (i32.load offset=4
+       (get_local $5)
+      )
+      (get_local $6)
+     )
+    )
+    (set_local $1
+     (if (result i32)
+      (i32.and
+       (get_local $3)
+       (i32.const 1)
+      )
+      (get_local $2)
+      (call $~lib/polyfills/bswap<i32>
+       (get_local $2)
+      )
+     )
+    )
+    (i32.store offset=8
+     (i32.add
+      (get_local $11)
+      (get_local $0)
+     )
+     (get_local $1)
+    )
+   )
+  )
+  (if
+   (i32.eqz
+    (i32.eq
+     (block $~lib/dataview/DataView#getInt32|inlined.10 (result i32)
+      (set_local $3
+       (get_global $std/dataview/view)
+      )
+      (set_local $2
+       (i32.const 0)
+      )
+      (set_local $6
+       (i32.const 1)
+      )
+      (block $~lib/dataview/get<i32>|inlined.10 (result i32)
+       (set_local $5
+        (i32.load
+         (get_local $3)
+        )
+       )
+       (set_local $1
+        (i32.add
+         (i32.load offset=4
+          (get_local $3)
+         )
+         (get_local $2)
+        )
+       )
+       (set_local $0
+        (i32.load offset=8
+         (i32.add
+          (get_local $5)
+          (get_local $1)
+         )
+        )
+       )
+       (if (result i32)
+        (i32.and
+         (get_local $6)
+         (i32.const 1)
+        )
+        (get_local $0)
+        (call $~lib/polyfills/bswap<i32>
+         (get_local $0)
+        )
+       )
+      )
+     )
+     (i32.const 1204680201)
+    )
+   )
+   (block
+    (call $~lib/env/abort
+     (i32.const 0)
+     (i32.const 216)
+     (i32.const 133)
+     (i32.const 0)
+    )
+    (unreachable)
+   )
+  )
+  (block $~lib/dataview/DataView#setInt32|inlined.1
+   (set_local $6
+    (get_global $std/dataview/view)
+   )
+   (set_local $2
+    (i32.const 0)
+   )
+   (set_local $3
+    (i32.const 660673230)
+   )
+   (set_local $0
+    (i32.const 0)
+   )
+   (block $~lib/dataview/set<i32>|inlined.1
+    (set_local $1
+     (i32.load
+      (get_local $6)
+     )
+    )
+    (set_local $5
+     (i32.add
+      (i32.load offset=4
+       (get_local $6)
+      )
+      (get_local $2)
+     )
+    )
+    (set_local $11
+     (if (result i32)
+      (i32.and
+       (get_local $0)
+       (i32.const 1)
+      )
+      (get_local $3)
+      (call $~lib/polyfills/bswap<i32>
+       (get_local $3)
+      )
+     )
+    )
+    (i32.store offset=8
+     (i32.add
+      (get_local $1)
+      (get_local $5)
+     )
+     (get_local $11)
+    )
+   )
+  )
+  (if
+   (i32.eqz
+    (i32.eq
+     (block $~lib/dataview/DataView#getInt32|inlined.11 (result i32)
+      (set_local $0
+       (get_global $std/dataview/view)
+      )
+      (set_local $3
+       (i32.const 0)
+      )
+      (set_local $2
+       (i32.const 0)
+      )
+      (block $~lib/dataview/get<i32>|inlined.11 (result i32)
+       (set_local $6
+        (i32.load
+         (get_local $0)
+        )
+       )
+       (set_local $11
+        (i32.add
+         (i32.load offset=4
+          (get_local $0)
+         )
+         (get_local $3)
+        )
+       )
+       (set_local $5
+        (i32.load offset=8
+         (i32.add
+          (get_local $6)
+          (get_local $11)
+         )
+        )
+       )
+       (if (result i32)
+        (i32.and
+         (get_local $2)
+         (i32.const 1)
+        )
+        (get_local $5)
+        (call $~lib/polyfills/bswap<i32>
+         (get_local $5)
+        )
+       )
+      )
+     )
+     (i32.const 660673230)
+    )
+   )
+   (block
+    (call $~lib/env/abort
+     (i32.const 0)
+     (i32.const 216)
+     (i32.const 136)
+     (i32.const 0)
+    )
+    (unreachable)
+   )
+  )
+  (block $~lib/dataview/DataView#setInt64|inlined.0
+   (set_local $2
+    (get_global $std/dataview/view)
+   )
+   (set_local $3
+    (i32.const 0)
+   )
+   (set_local $4
+    (i64.const -3290739641816099749)
+   )
+   (set_local $0
+    (i32.const 1)
+   )
+   (block $~lib/dataview/set<i64>|inlined.0
+    (set_local $5
+     (i32.load
+      (get_local $2)
+     )
+    )
+    (set_local $11
+     (i32.add
+      (i32.load offset=4
+       (get_local $2)
+      )
+      (get_local $3)
+     )
+    )
+    (set_local $12
+     (if (result i64)
+      (i32.and
+       (get_local $0)
+       (i32.const 1)
+      )
+      (get_local $4)
+      (call $~lib/polyfills/bswap<i64>
+       (get_local $4)
+      )
+     )
+    )
+    (i64.store offset=8
+     (i32.add
+      (get_local $5)
+      (get_local $11)
+     )
+     (get_local $12)
+    )
+   )
+  )
+  (if
+   (i32.eqz
+    (i64.eq
+     (block $~lib/dataview/DataView#getInt64|inlined.2 (result i64)
+      (set_local $0
+       (get_global $std/dataview/view)
+      )
+      (set_local $3
+       (i32.const 0)
+      )
+      (set_local $2
+       (i32.const 1)
+      )
+      (block $~lib/dataview/get<i64>|inlined.2 (result i64)
+       (set_local $11
+        (i32.load
+         (get_local $0)
+        )
+       )
+       (set_local $5
+        (i32.add
+         (i32.load offset=4
+          (get_local $0)
+         )
+         (get_local $3)
+        )
+       )
+       (set_local $4
+        (i64.load offset=8
+         (i32.add
+          (get_local $11)
+          (get_local $5)
+         )
+        )
+       )
+       (if (result i64)
+        (i32.and
+         (get_local $2)
+         (i32.const 1)
+        )
+        (get_local $4)
+        (call $~lib/polyfills/bswap<i64>
+         (get_local $4)
+        )
+       )
+      )
+     )
+     (i64.const -3290739641816099749)
+    )
+   )
+   (block
+    (call $~lib/env/abort
+     (i32.const 0)
+     (i32.const 216)
+     (i32.const 139)
+     (i32.const 0)
+    )
+    (unreachable)
+   )
+  )
+  (block $~lib/dataview/DataView#setInt64|inlined.1
+   (set_local $2
+    (get_global $std/dataview/view)
+   )
+   (set_local $3
+    (i32.const 0)
+   )
+   (set_local $4
+    (i64.const 8178932412950708047)
+   )
+   (set_local $0
+    (i32.const 0)
+   )
+   (block $~lib/dataview/set<i64>|inlined.1
+    (set_local $5
+     (i32.load
+      (get_local $2)
+     )
+    )
+    (set_local $11
+     (i32.add
+      (i32.load offset=4
+       (get_local $2)
+      )
+      (get_local $3)
+     )
+    )
+    (set_local $12
+     (if (result i64)
+      (i32.and
+       (get_local $0)
+       (i32.const 1)
+      )
+      (get_local $4)
+      (call $~lib/polyfills/bswap<i64>
+       (get_local $4)
+      )
+     )
+    )
+    (i64.store offset=8
+     (i32.add
+      (get_local $5)
+      (get_local $11)
+     )
+     (get_local $12)
+    )
+   )
+  )
+  (if
+   (i32.eqz
+    (i64.eq
+     (block $~lib/dataview/DataView#getInt64|inlined.3 (result i64)
+      (set_local $0
+       (get_global $std/dataview/view)
+      )
+      (set_local $3
+       (i32.const 0)
+      )
+      (set_local $2
+       (i32.const 0)
+      )
+      (block $~lib/dataview/get<i64>|inlined.3 (result i64)
+       (set_local $11
+        (i32.load
+         (get_local $0)
+        )
+       )
+       (set_local $5
+        (i32.add
+         (i32.load offset=4
+          (get_local $0)
+         )
+         (get_local $3)
+        )
+       )
+       (set_local $4
+        (i64.load offset=8
+         (i32.add
+          (get_local $11)
+          (get_local $5)
+         )
+        )
+       )
+       (if (result i64)
+        (i32.and
+         (get_local $2)
+         (i32.const 1)
+        )
+        (get_local $4)
+        (call $~lib/polyfills/bswap<i64>
+         (get_local $4)
+        )
+       )
+      )
+     )
+     (i64.const 8178932412950708047)
+    )
+   )
+   (block
+    (call $~lib/env/abort
+     (i32.const 0)
+     (i32.const 216)
+     (i32.const 142)
+     (i32.const 0)
+    )
+    (unreachable)
+   )
+  )
+  (block $~lib/dataview/DataView#setUint8|inlined.0
+   (set_local $2
+    (get_global $std/dataview/view)
+   )
+   (set_local $3
+    (i32.const 0)
+   )
+   (set_local $0
+    (i32.const 238)
+   )
+   (block $~lib/dataview/set<u8>|inlined.0
+    (set_local $5
+     (i32.load
+      (get_local $2)
+     )
+    )
+    (set_local $11
+     (i32.add
+      (i32.load offset=4
+       (get_local $2)
+      )
+      (get_local $3)
+     )
+    )
+    (set_local $6
+     (i32.const 1)
+    )
+    (set_local $1
+     (if (result i32)
+      (get_local $6)
+      (get_local $0)
+      (call $~lib/polyfills/bswap<u8>
+       (get_local $0)
+      )
+     )
+    )
+    (i32.store8 offset=8
+     (i32.add
+      (get_local $5)
+      (get_local $11)
+     )
+     (get_local $1)
+    )
+   )
+  )
+  (if
+   (i32.eqz
+    (i32.eq
+     (i32.and
+      (block $~lib/dataview/DataView#getUint8|inlined.8 (result i32)
+       (set_local $0
+        (get_global $std/dataview/view)
+       )
+       (set_local $3
+        (i32.const 0)
+       )
+       (block $~lib/dataview/get<u8>|inlined.8 (result i32)
+        (set_local $2
+         (i32.load
+          (get_local $0)
+         )
+        )
+        (set_local $1
+         (i32.add
+          (i32.load offset=4
+           (get_local $0)
+          )
+          (get_local $3)
+         )
+        )
+        (set_local $6
+         (i32.const 1)
+        )
+        (set_local $11
+         (i32.load8_u offset=8
+          (i32.add
+           (get_local $2)
+           (get_local $1)
+          )
+         )
+        )
+        (if (result i32)
+         (get_local $6)
+         (get_local $11)
+         (call $~lib/polyfills/bswap<u8>
+          (get_local $11)
+         )
+        )
+       )
+      )
+      (i32.const 255)
+     )
+     (i32.const 238)
+    )
+   )
+   (block
+    (call $~lib/env/abort
+     (i32.const 0)
+     (i32.const 216)
+     (i32.const 145)
+     (i32.const 0)
+    )
+    (unreachable)
+   )
+  )
+  (block $~lib/dataview/DataView#setUint16|inlined.0
+   (set_local $3
+    (get_global $std/dataview/view)
+   )
+   (set_local $0
+    (i32.const 0)
+   )
+   (set_local $11
+    (i32.const 58856)
+   )
+   (set_local $6
+    (i32.const 1)
+   )
+   (block $~lib/dataview/set<u16>|inlined.0
+    (set_local $1
+     (i32.load
+      (get_local $3)
+     )
+    )
+    (set_local $2
+     (i32.add
+      (i32.load offset=4
+       (get_local $3)
+      )
+      (get_local $0)
+     )
+    )
+    (set_local $5
+     (if (result i32)
+      (i32.and
+       (get_local $6)
+       (i32.const 1)
+      )
+      (get_local $11)
+      (call $~lib/polyfills/bswap<u16>
+       (get_local $11)
+      )
+     )
+    )
+    (i32.store16 offset=8
+     (i32.add
+      (get_local $1)
+      (get_local $2)
+     )
+     (get_local $5)
+    )
+   )
+  )
+  (if
+   (i32.eqz
+    (i32.eq
+     (i32.and
+      (block $~lib/dataview/DataView#getUint16|inlined.14 (result i32)
+       (set_local $6
+        (get_global $std/dataview/view)
+       )
+       (set_local $11
+        (i32.const 0)
+       )
+       (set_local $0
+        (i32.const 1)
+       )
+       (block $~lib/dataview/get<u16>|inlined.14 (result i32)
+        (set_local $3
+         (i32.load
+          (get_local $6)
+         )
+        )
+        (set_local $5
+         (i32.add
+          (i32.load offset=4
+           (get_local $6)
+          )
+          (get_local $11)
+         )
+        )
+        (set_local $2
+         (i32.load16_u offset=8
+          (i32.add
+           (get_local $3)
+           (get_local $5)
+          )
+         )
+        )
+        (if (result i32)
+         (i32.and
+          (get_local $0)
+          (i32.const 1)
+         )
+         (get_local $2)
+         (call $~lib/polyfills/bswap<u16>
+          (get_local $2)
+         )
+        )
+       )
+      )
+      (i32.const 65535)
+     )
+     (i32.const 58856)
+    )
+   )
+   (block
+    (call $~lib/env/abort
+     (i32.const 0)
+     (i32.const 216)
+     (i32.const 148)
+     (i32.const 0)
+    )
+    (unreachable)
+   )
+  )
+  (block $~lib/dataview/DataView#setUint16|inlined.1
+   (set_local $0
+    (get_global $std/dataview/view)
+   )
+   (set_local $11
+    (i32.const 0)
+   )
+   (set_local $6
+    (i32.const 60400)
+   )
+   (set_local $2
+    (i32.const 0)
+   )
+   (block $~lib/dataview/set<u16>|inlined.1
+    (set_local $5
+     (i32.load
+      (get_local $0)
+     )
+    )
+    (set_local $3
+     (i32.add
+      (i32.load offset=4
+       (get_local $0)
+      )
+      (get_local $11)
+     )
+    )
+    (set_local $1
+     (if (result i32)
+      (i32.and
+       (get_local $2)
+       (i32.const 1)
+      )
+      (get_local $6)
+      (call $~lib/polyfills/bswap<u16>
+       (get_local $6)
+      )
+     )
+    )
+    (i32.store16 offset=8
+     (i32.add
+      (get_local $5)
+      (get_local $3)
+     )
+     (get_local $1)
+    )
+   )
+  )
+  (if
+   (i32.eqz
+    (i32.eq
+     (i32.and
+      (block $~lib/dataview/DataView#getUint16|inlined.15 (result i32)
+       (set_local $2
+        (get_global $std/dataview/view)
+       )
+       (set_local $6
+        (i32.const 0)
+       )
+       (set_local $11
+        (i32.const 0)
+       )
+       (block $~lib/dataview/get<u16>|inlined.15 (result i32)
+        (set_local $0
+         (i32.load
+          (get_local $2)
+         )
+        )
+        (set_local $1
+         (i32.add
+          (i32.load offset=4
+           (get_local $2)
+          )
+          (get_local $6)
+         )
+        )
+        (set_local $3
+         (i32.load16_u offset=8
+          (i32.add
+           (get_local $0)
+           (get_local $1)
+          )
+         )
+        )
+        (if (result i32)
+         (i32.and
+          (get_local $11)
+          (i32.const 1)
+         )
+         (get_local $3)
+         (call $~lib/polyfills/bswap<u16>
+          (get_local $3)
+         )
+        )
+       )
+      )
+      (i32.const 65535)
+     )
+     (i32.const 60400)
+    )
+   )
+   (block
+    (call $~lib/env/abort
+     (i32.const 0)
+     (i32.const 216)
+     (i32.const 151)
+     (i32.const 0)
+    )
+    (unreachable)
+   )
+  )
+  (block $~lib/dataview/DataView#setUint32|inlined.0
+   (set_local $11
+    (get_global $std/dataview/view)
+   )
+   (set_local $6
+    (i32.const 0)
+   )
+   (set_local $2
+    (i32.const -846805744)
+   )
+   (set_local $3
+    (i32.const 1)
+   )
+   (block $~lib/dataview/set<u32>|inlined.0
+    (set_local $1
+     (i32.load
+      (get_local $11)
+     )
+    )
+    (set_local $0
+     (i32.add
+      (i32.load offset=4
+       (get_local $11)
+      )
+      (get_local $6)
+     )
+    )
+    (set_local $5
+     (if (result i32)
+      (i32.and
+       (get_local $3)
+       (i32.const 1)
+      )
+      (get_local $2)
+      (call $~lib/polyfills/bswap<u32>
+       (get_local $2)
+      )
+     )
+    )
+    (i32.store offset=8
+     (i32.add
+      (get_local $1)
+      (get_local $0)
+     )
+     (get_local $5)
+    )
+   )
+  )
+  (if
+   (i32.eqz
+    (i32.eq
+     (block $~lib/dataview/DataView#getUint32|inlined.10 (result i32)
+      (set_local $3
+       (get_global $std/dataview/view)
+      )
+      (set_local $2
+       (i32.const 0)
+      )
+      (set_local $6
+       (i32.const 1)
+      )
+      (block $~lib/dataview/get<u32>|inlined.10 (result i32)
+       (set_local $11
+        (i32.load
+         (get_local $3)
+        )
+       )
+       (set_local $5
+        (i32.add
+         (i32.load offset=4
+          (get_local $3)
+         )
+         (get_local $2)
+        )
+       )
+       (set_local $0
+        (i32.load offset=8
+         (i32.add
+          (get_local $11)
+          (get_local $5)
+         )
+        )
+       )
+       (if (result i32)
+        (i32.and
+         (get_local $6)
+         (i32.const 1)
+        )
+        (get_local $0)
+        (call $~lib/polyfills/bswap<u32>
+         (get_local $0)
+        )
+       )
+      )
+     )
+     (i32.const -846805744)
+    )
+   )
+   (block
+    (call $~lib/env/abort
+     (i32.const 0)
+     (i32.const 216)
+     (i32.const 154)
+     (i32.const 0)
+    )
+    (unreachable)
+   )
+  )
+  (block $~lib/dataview/DataView#setUint32|inlined.1
+   (set_local $6
+    (get_global $std/dataview/view)
+   )
+   (set_local $2
+    (i32.const 0)
+   )
+   (set_local $3
+    (i32.const -1510791631)
+   )
+   (set_local $0
+    (i32.const 0)
+   )
+   (block $~lib/dataview/set<u32>|inlined.1
+    (set_local $5
+     (i32.load
+      (get_local $6)
+     )
+    )
+    (set_local $11
+     (i32.add
+      (i32.load offset=4
+       (get_local $6)
+      )
+      (get_local $2)
+     )
+    )
+    (set_local $1
+     (if (result i32)
+      (i32.and
+       (get_local $0)
+       (i32.const 1)
+      )
+      (get_local $3)
+      (call $~lib/polyfills/bswap<u32>
+       (get_local $3)
+      )
+     )
+    )
+    (i32.store offset=8
+     (i32.add
+      (get_local $5)
+      (get_local $11)
+     )
+     (get_local $1)
+    )
+   )
+  )
+  (if
+   (i32.eqz
+    (i32.eq
+     (block $~lib/dataview/DataView#getUint32|inlined.11 (result i32)
+      (set_local $0
+       (get_global $std/dataview/view)
+      )
+      (set_local $3
+       (i32.const 0)
+      )
+      (set_local $2
+       (i32.const 0)
+      )
+      (block $~lib/dataview/get<u32>|inlined.11 (result i32)
+       (set_local $6
+        (i32.load
+         (get_local $0)
+        )
+       )
+       (set_local $1
+        (i32.add
+         (i32.load offset=4
+          (get_local $0)
+         )
+         (get_local $3)
+        )
+       )
+       (set_local $11
+        (i32.load offset=8
+         (i32.add
+          (get_local $6)
+          (get_local $1)
+         )
+        )
+       )
+       (if (result i32)
+        (i32.and
+         (get_local $2)
+         (i32.const 1)
+        )
+        (get_local $11)
+        (call $~lib/polyfills/bswap<u32>
+         (get_local $11)
+        )
+       )
+      )
+     )
+     (i32.const -1510791631)
+    )
+   )
+   (block
+    (call $~lib/env/abort
+     (i32.const 0)
+     (i32.const 216)
+     (i32.const 157)
+     (i32.const 0)
+    )
+    (unreachable)
+   )
+  )
+  (block $~lib/dataview/DataView#setUint64|inlined.0
+   (set_local $2
+    (get_global $std/dataview/view)
+   )
+   (set_local $3
+    (i32.const 0)
+   )
+   (set_local $4
+    (i64.const 2334704782995986958)
+   )
+   (set_local $0
+    (i32.const 1)
+   )
+   (block $~lib/dataview/set<u64>|inlined.0
+    (set_local $11
+     (i32.load
+      (get_local $2)
+     )
+    )
+    (set_local $1
+     (i32.add
+      (i32.load offset=4
+       (get_local $2)
+      )
+      (get_local $3)
+     )
+    )
+    (set_local $12
+     (if (result i64)
+      (i32.and
+       (get_local $0)
+       (i32.const 1)
+      )
+      (get_local $4)
+      (call $~lib/polyfills/bswap<u64>
+       (get_local $4)
+      )
+     )
+    )
+    (i64.store offset=8
+     (i32.add
+      (get_local $11)
+      (get_local $1)
+     )
+     (get_local $12)
+    )
+   )
+  )
+  (if
+   (i32.eqz
+    (i64.eq
+     (block $~lib/dataview/DataView#getUint64|inlined.2 (result i64)
+      (set_local $0
+       (get_global $std/dataview/view)
+      )
+      (set_local $3
+       (i32.const 0)
+      )
+      (set_local $2
+       (i32.const 1)
+      )
+      (block $~lib/dataview/get<u64>|inlined.2 (result i64)
+       (set_local $1
+        (i32.load
+         (get_local $0)
+        )
+       )
+       (set_local $11
+        (i32.add
+         (i32.load offset=4
+          (get_local $0)
+         )
+         (get_local $3)
+        )
+       )
+       (set_local $4
+        (i64.load offset=8
+         (i32.add
+          (get_local $1)
+          (get_local $11)
+         )
+        )
+       )
+       (if (result i64)
+        (i32.and
+         (get_local $2)
+         (i32.const 1)
+        )
+        (get_local $4)
+        (call $~lib/polyfills/bswap<u64>
+         (get_local $4)
+        )
+       )
+      )
+     )
+     (i64.const 2334704782995986958)
+    )
+   )
+   (block
+    (call $~lib/env/abort
+     (i32.const 0)
+     (i32.const 216)
+     (i32.const 160)
+     (i32.const 0)
+    )
+    (unreachable)
+   )
+  )
+  (block $~lib/dataview/DataView#setUint64|inlined.1
+   (set_local $2
+    (get_global $std/dataview/view)
+   )
+   (set_local $3
+    (i32.const 0)
+   )
+   (set_local $4
+    (i64.const -7123186897289856329)
+   )
+   (set_local $0
+    (i32.const 0)
+   )
+   (block $~lib/dataview/set<u64>|inlined.1
+    (set_local $11
+     (i32.load
+      (get_local $2)
+     )
+    )
+    (set_local $1
+     (i32.add
+      (i32.load offset=4
+       (get_local $2)
+      )
+      (get_local $3)
+     )
+    )
+    (set_local $12
+     (if (result i64)
+      (i32.and
+       (get_local $0)
+       (i32.const 1)
+      )
+      (get_local $4)
+      (call $~lib/polyfills/bswap<u64>
+       (get_local $4)
+      )
+     )
+    )
+    (i64.store offset=8
+     (i32.add
+      (get_local $11)
+      (get_local $1)
+     )
+     (get_local $12)
+    )
+   )
+  )
+  (if
+   (i32.eqz
+    (i64.eq
+     (block $~lib/dataview/DataView#getUint64|inlined.3 (result i64)
+      (set_local $0
+       (get_global $std/dataview/view)
+      )
+      (set_local $3
+       (i32.const 0)
+      )
+      (set_local $2
+       (i32.const 0)
+      )
+      (block $~lib/dataview/get<u64>|inlined.3 (result i64)
+       (set_local $1
+        (i32.load
+         (get_local $0)
+        )
+       )
+       (set_local $11
+        (i32.add
+         (i32.load offset=4
+          (get_local $0)
+         )
+         (get_local $3)
+        )
+       )
+       (set_local $4
+        (i64.load offset=8
+         (i32.add
+          (get_local $1)
+          (get_local $11)
+         )
+        )
+       )
+       (if (result i64)
+        (i32.and
+         (get_local $2)
+         (i32.const 1)
+        )
+        (get_local $4)
+        (call $~lib/polyfills/bswap<u64>
+         (get_local $4)
+        )
+       )
+      )
+     )
+     (i64.const -7123186897289856329)
+    )
+   )
+   (block
+    (call $~lib/env/abort
+     (i32.const 0)
+     (i32.const 216)
+     (i32.const 163)
      (i32.const 0)
     )
     (unreachable)
    )
   )
  )
- (func $null (; 19 ;) (type $v)
+ (func $null (; 20 ;) (type $v)
  )
 )
